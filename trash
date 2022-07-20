@@ -1,0 +1,52 @@
+<script>
+
+window.onload = function() {
+
+var obj = document.querySelectorAll(".evs");
+
+	
+
+	console.log(obj.length);
+
+		for(var i=0; i<obj.length;i++){
+			console.log(obj[i]);
+			
+
+				var buttons = obj[i].getElementsByClassName("evo_disp");
+		  		console.log(buttons.length);
+				if(buttons.length > 2){
+					obj[i].style.marginLeft = "225px";
+
+
+				} else if(buttons.length == 2){
+				console.log(buttons.length);
+					obj[i].style.marginLeft = "410px";
+				}		
+
+		}
+
+
+
+};
+	
+	
+	
+
+
+	
+
+</script>
+
+
+
+<img width="60px" height = "70px" src = <%= Imgs[i][j] %> > 
+	
+
+	<form action="/pokemon" method="GET" class="evo_disp">
+	<input type ="text" name="pkmn_name" value=<%= chain[i][j]["link"]%> >
+	
+	<button type="submit"> <%= chain[i][j]["name"] %> </button>
+	
+
+
+	</form>

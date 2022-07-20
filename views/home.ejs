@@ -1,0 +1,16 @@
+<%- include("partials/header") %>
+
+<div class = "container">
+<form action="/pokemon" method="GET">
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><span class="iconify" data-icon="ic:baseline-catching-pokemon" data-inline="false"></span></span>
+  </div>
+  <input type="text" class="form-control" aria-describedby="basic-addon1" name="pkmn_name" placeholder="name of pokemon">
+  <div class="input-group-append">
+    <button class="btn btn-dark" id="button-addon2">Find</button>
+  </div>
+</div>
+
+
+<%- include("partials/footer") %>

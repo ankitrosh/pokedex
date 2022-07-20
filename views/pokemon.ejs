@@ -1,0 +1,590 @@
+<%- include("partials/header") %>
+
+<div class = "container">
+<form action="/pokemon" method="GET">
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1"><span class="iconify" data-icon="ic:baseline-catching-pokemon" data-inline="false"></span></span>
+  </div>
+  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="pkmn_name" placeholder="name of pokemon">
+  <div class="input-group-append">
+    <button class="btn btn-dark" id="button-addon2">Find</button>
+  </div>
+</div>
+
+</form>
+
+
+
+
+<button class="namenodisp" value = <%= data["forms"][0]["name"] %> ></button>
+
+<img src="<%= data["sprites"]["front_default"] %>">
+
+<h4> 
+<% for(var i=0; i< varieties.length; i++){ %>
+
+	
+		<form action="/pokemon" method="GET" class="var_disp">
+	<input type ="text" name="pkmn_name" value=<%= varieties[i]["link"] %> >
+	
+	<button type="submit" value = <%= varieties[i]["name"] %> class= "var_dispb" ><%= varieties[i]["name"] %>  </button>
+
+		
+		</form>
+	
+<%  } %>
+
+</h4>
+
+
+<div class="jumbotron"> 
+	<h4> Stats </h4>
+	
+	<div class="row">
+		<div class="col-lg-2 stathead">
+			 
+
+	<% for(var i=0; i < data["stats"].length; i++){ %>
+
+	<p>
+				
+	           <%= data["stats"][i]["stat"]["name"]%> 
+
+	</p>
+
+
+	<% } %>
+			</div>
+
+			<div class="col-lg-4">
+
+	<% for(var i=0; i < data["stats"].length; i++){ %>
+
+	<p>
+				<div class="progress">
+					<!-- -->
+  <div class="progress-bar" role="progressbar" style="width: <%= data["stats"][i]["base_stat"] %>"  aria-valuenow=<%= data["stats"][i]["base_stat"]%> 
+ aria-valuemin="0" aria-valuemax="200"><%= data["stats"][i]["base_stat"]%> 
+ </div>
+			</div>
+	           
+	</p>
+
+
+	<% } %>
+		</div>
+		
+			
+	</div>
+	
+			
+
+</div>
+<div class = "row">
+		
+		
+		<div class="col-lg-4">
+			<h4> Type </h4>
+			<ul>
+			<% for(var i=0; i < data["types"].length; i++){ %>
+
+			<li> 
+
+				<span class= "type_style" id = "<%= data["types"][i]["type"]["name"] %>"><%= data["types"][i]["type"]["name"] %></span>
+
+			</li>
+
+
+			<% } %>
+			
+			</ul>
+			<% var typeDefenses = {normal: 1, fire: 1, water: 1, electric: 1,grass:1, ice:1,fighting:1, poison:1,ground:1,flying:1,psychic:1,bug:1,rock:1,ghost:1,dragon:1,dark:1,steel:1,fairy:1}
+%>
+			<div class="jumbotron">Type Defenses
+			<% for(var i=0; i<data["types"].length; i++){ %>
+
+				<%if( data["types"][i]["type"]["name"] == "normal"){ %>
+
+						<% typeDefenses.fighting = typeDefenses.fighting*2 %>
+						<% typeDefenses.ghost = typeDefenses.ghost*0 %>
+
+	
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "fire"){ %>
+
+						<% typeDefenses.fire = typeDefenses.fire*0.5 %>
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						<% typeDefenses.ice = typeDefenses.ice*0.5 %>
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+
+						<% typeDefenses.water = typeDefenses.water*2 %>
+						<% typeDefenses.ground = typeDefenses.ground*2 %>
+						<% typeDefenses.rock = typeDefenses.rock*2 %>
+
+	
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "water"){ %>
+
+						<% typeDefenses.fire = typeDefenses.fire*0.5 %>
+						<% typeDefenses.water = typeDefenses.water*0.5 %>
+						<% typeDefenses.ice = typeDefenses.ice*0.5 %>
+						<% typeDefenses.steel = typeDefenses.steel*0.5 %>
+
+						<% typeDefenses.electric = typeDefenses.electric*2 %>
+						<% typeDefenses.grass = typeDefenses.grass*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "electric"){ %>
+
+						<% typeDefenses.electric = typeDefenses.electric*0.5 %>
+						<% typeDefenses.flying = typeDefenses.flying*0.5 %>
+						<% typeDefenses.steel = typeDefenses.steel*0.5 %>
+
+						<% typeDefenses.ground = typeDefenses.ground*2 %>
+						
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "grass"){ %>
+
+						<% typeDefenses.electric = typeDefenses.electric*0.5 %>
+						<% typeDefenses.water = typeDefenses.water*0.5 %>
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						<% typeDefenses.ground = typeDefenses.ground*0.5 %>
+						
+
+						<% typeDefenses.fire = typeDefenses.fire*2 %>
+						<% typeDefenses.ice = typeDefenses.ice*2 %>
+						<% typeDefenses.poison = typeDefenses.poison*2 %>
+						<% typeDefenses.flying = typeDefenses.flying*2 %>
+						<% typeDefenses.bug = typeDefenses.bug*2 %>
+						
+
+				<%} %>
+
+
+				<%if( data["types"][i]["type"]["name"] == "ice"){ %>
+
+						<% typeDefenses.ice = typeDefenses.ice*0.5 %>
+						
+
+						<% typeDefenses.fire = typeDefenses.fire*2 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*2 %>
+						<% typeDefenses.rock = typeDefenses.rock*2 %>
+						<% typeDefenses.steel = typeDefenses.steel*2 %>
+						
+						
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "fighting"){ %>
+
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+						<% typeDefenses.rock = typeDefenses.rock*0.5 %>
+						<% typeDefenses.dark = typeDefenses.dark*0.5 %>
+						
+
+						<% typeDefenses.psychic = typeDefenses.psychic*2 %>
+						<% typeDefenses.flying = typeDefenses.flying*2 %>
+					
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "poison"){ %>
+
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+						<% typeDefenses.fairy = typeDefenses.fairy*0.5 %>
+						<% typeDefenses.poison = typeDefenses.poison*0.5 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*0.5 %>
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						
+
+						<% typeDefenses.psychic = typeDefenses.psychic*2 %>
+						<% typeDefenses.ground = typeDefenses.ground*2 %>
+					
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "ground"){ %>
+
+						<% typeDefenses.electric = typeDefenses.electric*0 %>
+						<% typeDefenses.poison = typeDefenses.poison*0.5 %>
+						<% typeDefenses.rock = typeDefenses.rock*0.5 %>
+						
+
+						<% typeDefenses.water = typeDefenses.water*2 %>
+						<% typeDefenses.grass = typeDefenses.grass*2 %>
+						<% typeDefenses.ice = typeDefenses.ice*2 %>
+					
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "flying"){ %>
+
+						
+						<% typeDefenses.ground = typeDefenses.ground*0 %>
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*0.5 %>
+						
+
+						
+						<% typeDefenses.rock = typeDefenses.rock*2 %>
+						<% typeDefenses.ice = typeDefenses.ice*2 %>
+						<% typeDefenses.electric = typeDefenses.electric*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "psychic"){ %>
+
+						<% typeDefenses.psychic = typeDefenses.psychic*0.5 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*0.5 %>
+						
+
+						
+						<% typeDefenses.ghost = typeDefenses.ghost*2 %>
+						<% typeDefenses.dark = typeDefenses.dark*2 %>
+						<% typeDefenses.bug = typeDefenses.bug*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "bug"){ %>
+
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*0.5 %>
+						<% typeDefenses.ground = typeDefenses.ground*0.5 %>
+						
+
+						
+						<% typeDefenses.fire = typeDefenses.fire*2 %>
+						<% typeDefenses.flying = typeDefenses.flying*2 %>
+						<% typeDefenses.rock = typeDefenses.rock*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "rock"){ %>
+
+						<% typeDefenses.normal = typeDefenses.normal*0.5 %>
+						<% typeDefenses.fire = typeDefenses.fire*0.5 %>
+						<% typeDefenses.poison = typeDefenses.poison*0.5 %>
+						<% typeDefenses.flying = typeDefenses.flying*0.5 %>
+						
+
+						
+						<% typeDefenses.water = typeDefenses.water*2 %>
+						<% typeDefenses.grass = typeDefenses.grass*2 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*2 %>
+						<% typeDefenses.ground = typeDefenses.ground*2 %>
+						<% typeDefenses.steel = typeDefenses.steel*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "ghost"){ %>
+
+						<% typeDefenses.normal = typeDefenses.normal*0 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*0 %>
+						<% typeDefenses.poison = typeDefenses.poison*0.5 %>
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+						
+
+						
+						<% typeDefenses.ghost = typeDefenses.ghost*2 %>
+						<% typeDefenses.dark = typeDefenses.dark*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "dragon"){ %>
+
+						<% typeDefenses.fire = typeDefenses.fire*0.5 %>
+						<% typeDefenses.water = typeDefenses.water*0.5 %>
+						<% typeDefenses.electric = typeDefenses.electric*0.5 %>
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						
+
+						
+						<% typeDefenses.ice = typeDefenses.ice*2 %>
+						<% typeDefenses.dragon = typeDefenses.dragon*2 %>
+						<% typeDefenses.fairy = typeDefenses.fairy*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "dark"){ %>
+
+						<% typeDefenses.psychic = typeDefenses.psychic*0 %>
+						<% typeDefenses.ghost = typeDefenses.ghost*0.5 %>
+						<% typeDefenses.dark = typeDefenses.dark*0.5 %>
+
+						<% typeDefenses.bug = typeDefenses.bug*2 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*2 %>
+						<% typeDefenses.fairy = typeDefenses.fairy*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "steel"){ %>
+
+						<% typeDefenses.poison = typeDefenses.poison*0 %>
+						<% typeDefenses.normal = typeDefenses.normal*0.5 %>
+						<% typeDefenses.grass = typeDefenses.grass*0.5 %>
+						<% typeDefenses.ice = typeDefenses.ice*0.5 %>
+						<% typeDefenses.flying = typeDefenses.flying*0.5 %>
+						<% typeDefenses.psychic = typeDefenses.psychic*0.5 %>
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+						<% typeDefenses.rock = typeDefenses.rock*0.5 %>
+						<% typeDefenses.dragon = typeDefenses.dragon*0.5 %>
+						<% typeDefenses.steel = typeDefenses.steel*0.5 %>
+						<% typeDefenses.fairy = typeDefenses.fairy*0.5 %>
+
+						<% typeDefenses.fire = typeDefenses.fire*2 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*2 %>
+						<% typeDefenses.ground = typeDefenses.ground*2 %>
+
+				<%} %>
+
+				<%if( data["types"][i]["type"]["name"] == "fairy"){ %>
+
+						<% typeDefenses.dragon = typeDefenses.dragon*0 %>
+						<% typeDefenses.fighting = typeDefenses.fighting*0.5 %>
+						<% typeDefenses.bug = typeDefenses.bug*0.5 %>
+						<% typeDefenses.dark = typeDefenses.dark*0.5 %>
+
+						<% typeDefenses.poison = typeDefenses.poison*2 %>
+						<% typeDefenses.steel = typeDefenses.steel*2 %>
+						
+
+				<%} %>
+
+
+			<% } %>
+
+			<div class="col-lg-12">
+
+		
+
+			<li class="type_disp" id="normal"> NOR
+			<%= typeDefenses.normal %>   </li> 
+
+			<li class="type_disp" id="fire"> FIR
+			<%= typeDefenses.fire %>   </li>
+			<li class="type_disp" id="water"> WAT
+			<%= typeDefenses.water %>   </li>
+			<li class="type_disp" id="grass"> GRA
+			<%= typeDefenses.grass %>   </li>
+			<li class="type_disp" id="electric"> ELE
+			<%= typeDefenses.electric %>   </li>
+			<li class="type_disp" id="ice">ICE 
+			<%= typeDefenses.ice %>   		</li>
+			<li class="type_disp" id="fighting">FIG
+			 <%= typeDefenses.fighting %>   </li>
+			<li class="type_disp" id="poison"> POI
+			<%= typeDefenses.poison %>   </li>
+			<li class="type_disp" id="ground">GRO 
+			<%= typeDefenses.ground %>   </li>
+			<li class="type_disp" id="flying">FLY 
+			<%= typeDefenses.flying %>   </li>
+			<li class="type_disp" id="psychic">PSY 
+			<%= typeDefenses.psychic %>   </li>
+			<li class="type_disp" id="bug">BUG 
+			<%= typeDefenses.bug %>   </li>
+			<li class="type_disp" id="rock">ROC 
+			<%= typeDefenses.rock %>   </li>
+			<li class="type_disp" id="ghost">GHO 
+			<%= typeDefenses.ghost %>   </li>
+			<li class="type_disp" id="dragon">DRA 
+			<%= typeDefenses.dragon %>   </li>
+			<li class="type_disp" id="dark">DAR 
+			<%= typeDefenses.dark %>   </li>
+			<li class="type_disp" id="steel">STE 
+			<%= typeDefenses.steel %>   </li>
+			<li class="type_disp" id="fairy">FAI 
+			<%= typeDefenses.fairy %>   </li>
+
+			</div>
+
+			</div>
+		</div>
+
+		
+	
+		<div class="col-lg-4">
+
+		<h4> Abilities </h4>
+			<ul>
+			<% for(var i=0; i < data["abilities"].length; i++){ %>
+
+			<li> 
+
+				<%= data["abilities"][i]["ability"]["name"] %> 
+
+			</li>
+
+
+			<% } %>
+			</ul>
+		</div>
+	
+
+	<div class="col-lg-4 picture">
+
+		<img width= 300px height=300px src="<%= data["sprites"]["other"]["dream_world"]["front_default"] %>">
+
+	</div>
+
+</div>
+
+<div class= "jumbotron">
+
+<h4> Evolution Chart </h4>
+<% for(var i=0; i< chain.length; i++){ %>
+<div class="evs"> 
+
+
+ 
+	<% for(var j=0; j<chain[i].length; j++){ %>
+
+
+	
+	
+ 	<img  width="40px" height = "55px" src= <%= Imgs[i][j] %> >
+ 	<div class="card-body">
+  	<form action="/pokemon" method="GET" class="evo_disp">
+	<input type ="text" name="pkmn_name" value=<%= chain[i][j]["link"]%> >
+	
+	<button type="submit"> <%= chain[i][j]["name"] %> </button>
+	
+
+
+	</form>
+
+
+    	
+
+	</div>
+	
+
+	<% } %>
+			
+		
+ </div>
+<% } %>
+
+
+<div class="evs"> 
+<% for(var i=0; i< mvarieties.length; i++){ %>
+<img  width="60px" height = "70px" src= <%= MImgs[0][i] %> >
+<div class="card-body">
+<form action="/pokemon" method="GET" class="evo_disp">
+	<input type ="text" name="pkmn_name" value=<%= mvarieties[i]["link"]%> >
+	
+	<button type="submit"> <%= mvarieties[i]["name"] %> </button>
+	
+
+
+	</form>
+</div>
+
+<% } %>
+</div>
+
+<% for(var i=0; i< galar.length; i++){ %>
+<div class="evs"> 
+
+
+ 
+	<% for(var j=0; j<galar[i].length; j++){ %>
+
+
+ 	
+ 	<div class="card-body">
+  	<form action="/pokemon" method="GET" class="evo_disp">
+	<input type ="text" name="pkmn_name" value=<%= galar[i][j]["link"]%> >
+	
+	<button type="submit"> <%= galar[i][j]["name"] %> </button>
+	
+
+
+	</form>
+
+
+    	
+
+</div>
+	<% } %>
+			
+		
+ </div>
+<% } %>
+
+<% for(var i=0; i< alola.length; i++){ %>
+<div class="evs"> 
+
+
+ 
+	<% for(var j=0; j<alola[i].length; j++){ %>
+
+
+ 	
+ 	<div class="card-body">
+  	<form action="/pokemon" method="GET" class="evo_disp">
+	<input type ="text" name="pkmn_name" value=<%= alola[i][j]["link"]%> >
+	
+	<button type="submit"> <%= alola[i][j]["name"] %> </button>
+	
+
+
+	</form>
+
+
+    	
+
+</div>
+	<% } %>
+			
+		
+ </div>
+<% } %>
+
+</div>
+
+<script>
+window.onload = function() {
+
+var obj = document.querySelectorAll("h4");
+
+var head = document.querySelector(".namenodisp");
+
+obj = obj[0];
+	
+
+var btns = obj.querySelectorAll("button");
+
+for(var i=0; i<btns.length; i++){
+console.log(i)
+
+	if(btns[i].value == head.value){
+		
+	console.log(btns[i].classList)
+		btns[i].classList.toggle("var_dispb")
+		btns[i].classList.toggle("activehead")
+	
+	}
+}
+
+
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+<%- include("partials/footer") %>
+
